@@ -16,6 +16,9 @@ const contact = new mongoose.Schema({
         type:String,
         default:uuidv4()
     },
+    name:{
+        type:String
+    },
     email:{
         type:String,
         trim:true,
@@ -26,7 +29,7 @@ const contact = new mongoose.Schema({
         required:true
     },
     contact_date:{
-        type:Date,
+        type:String,
         default:`Contact Date :: ${date} and Time :: ${time}`
     }
 })

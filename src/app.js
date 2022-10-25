@@ -7,7 +7,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import ContactRoutes from '../routes/Contact.route'
-
+import swaggerUI from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
 /**
  * Declaring Route files
  */
@@ -56,15 +57,54 @@ app.use((req, res, next) => {
 })
 
 
+
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Portfolio Api",
+            version: "1.0.0",
+            description: "A simple Portfolio Api API",
+            termsOfService: "http://example.com/terms/",
+            contact: {
+                name: "API Support",
+                url: "http://www.exmaple.com/support",
+                email: "support@example.com",
+        },
+    },
+    
+    servers: [
+        {
+          url: "http://localhost:4000",
+          description: "My API Documentation",
+        },
+      ],
+    },
+    apis: ["./src/app.js"],
+};
+
+/**
+ * Initializing all routes of this project
+ */
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+/**
+ * @openapi
+ * /s1/send:
+ *   post:
+ *     description: Welcome to swagger-jsdoc!
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ */
 app.get('/r1',(req,res)=>{
     res.json({
         msg:'Hello this is your portfolio backend api...'
     })
 })
 
-/**
- * Initializing all routes of this project
- */
+
 app.use('/s1',ContactRoutes);
 
 

@@ -1,9 +1,13 @@
 import express from "express";
 import { SendMessage } from "../controller/Contact.controller";
+import signupValidation,{formFields} from "../validation/contact.validation";
 
 const ContactRoutes = express.Router();
 
-ContactRoutes.post('/send',SendMessage);
+/**
+ * This is signup route
+ */
+ContactRoutes.post('/send',formFields,signupValidation,SendMessage);
 
 
 export default ContactRoutes
